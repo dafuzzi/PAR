@@ -4,5 +4,7 @@
     <string name="app_name">PAR</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_add_reminder">Add Reminder</string>
+    <string name="title_activity_add_note">add a new note</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
