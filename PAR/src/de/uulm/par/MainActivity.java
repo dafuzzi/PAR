@@ -1,13 +1,10 @@
 package de.uulm.par;
 
 import android.support.v7.app.ActionBarActivity;
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -33,15 +30,10 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_add_reminder) {
-        	Intent intent = new Intent(this, AddNote.class);
+        	Intent intent = new Intent(this, ListViewExampleActivity.class);
             startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-//    /** Called when the user clicks a button */
-//    public void addNote(View view) {
-//        Intent intent = new Intent(this, AddNote.class);
-//        startActivity(intent);
-//    }
 }
