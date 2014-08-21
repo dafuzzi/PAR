@@ -14,14 +14,16 @@ import android.widget.TextView;
 
 public class CustomList extends ArrayAdapter<String> {
 	private final Activity context;
-	private final String[] web;
+	private final String[] title;
 	private final Integer[] imageId;
+	private final LinkedList<PlainNote> details;
 
-	public CustomList(Activity context, String[] web, Integer[] imageId) {
-		super(context, R.layout.list_single, web);
+	public CustomList(Activity context, String[] title, Integer[] imageId, LinkedList<PlainNote> details) {
+		super(context, R.layout.list_single,title);
 		this.context = context;
-		this.web = web;
+		this.title = title;
 		this.imageId = imageId;
+		this.details = details;
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class CustomList extends ArrayAdapter<String> {
 		View rowView = inflater.inflate(R.layout.list_single, null, true);
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
-		txtTitle.setText(web[position]);
+		txtTitle.setText(title[position]);
 		imageView.setImageResource(imageId[position]);
 		return rowView;
 	}
