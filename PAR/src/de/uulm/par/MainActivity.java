@@ -3,10 +3,12 @@ package de.uulm.par;
 import java.util.LinkedList;
 
 import org.joda.time.DateTime;
-
-import de.uulm.par.notes.AddNote;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
+import de.uulm.par.shownotes.ShowAlert;
+import de.uulm.par.shownotes.ShowLocation;
+import de.uulm.par.shownotes.ShowNote;
+import de.uulm.par.shownotes.ShowPerson;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,11 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-	ListView list;
-	LinkedList<PlainNote> notes = new LinkedList<PlainNote>();
+	private ListView list;
+	private LinkedList<PlainNote> notes = new LinkedList<PlainNote>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,17 @@ public class MainActivity extends ActionBarActivity {
 		PlainNote s1 = new PlainNote("Fix bugs in project",
 				"just kidding... there are no bugs ;)", NoteType.SIMPLE,
 				new DateTime());
+		
+		PlainNote p2 = new PlainNote("Seminar",
+				"Talk about the acm seminar", NoteType.PERSON,
+				new DateTime());
+		p2.setPerson("Fabian Maier");
 
 		notes.add(t1);
 		notes.add(l1);
 		notes.add(p1);
 		notes.add(s1);
+		notes.add(p2);
 
 		// DUMMY DATA ---- END ----
 
@@ -60,10 +67,23 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Toast.makeText(MainActivity.this,
-						"You Clicked at " + notes.get(position).getType(), Toast.LENGTH_SHORT)
-						.show();
-
+				Intent intent;
+				switch (notes.get(position).getType()) {
+				case LOCATION:
+					intent = new Intent(getApplicationContext(),ShowNote.class);
+					break;
+				case DATETIME:
+					intent = new Intent(getApplicationContext(),ShowPerson.class);
+					break;
+				case PERSON:
+					intent = new Intent(getApplicationContext(),ShowAlert.class);
+					break;
+				default:
+					intent = new Intent(getApplicationContext(),ShowLocation.class);
+					break;
+				}
+				intent.putExtra("Note", notes.get(position));
+				startActivity(intent);
 			}
 		});
 	}

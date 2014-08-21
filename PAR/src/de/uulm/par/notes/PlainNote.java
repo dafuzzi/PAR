@@ -1,19 +1,24 @@
 package de.uulm.par.notes;
 
+import java.io.Serializable;
 import org.joda.time.DateTime;
 
 /**
  * @author Fabian Schwab
  *
  */
-public class PlainNote {
-	String title;
-	String message;
-	NoteType type;
-	DateTime created;
-	DateTime alert;
-	String person;
-	String location;
+public class PlainNote implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String title;
+	private String message;
+	private NoteType type;
+	private DateTime created;
+	private DateTime alert;
+	private String person;
+	private String location;
 	
 	/**
 	 * @param title

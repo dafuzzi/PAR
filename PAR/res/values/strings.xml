@@ -3,10 +3,11 @@
 
     <string name="app_name">PAR</string>
     <string name="action_add_reminder">add reminder</string>
+     <string name="description_icon">icon</string>
     <string name="title_activity_add_note">add a new note</string>
-    <string name="action_settings">settings</string>
-    <string name="title_activity_list_view_example">ListViewExampleActivity</string>
-    <string name="title_activity_main_activity2">MainActivity2</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_show_note">note details</string>
+    <string name="title_activity_show_person">note datails</string>
+    <string name="title_activity_show_alert">note details</string>
+    <string name="title_activity_show_location">note details</string>
 
 </resources>
