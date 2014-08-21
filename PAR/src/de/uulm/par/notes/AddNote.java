@@ -1,5 +1,9 @@
-package de.uulm.par;
+package de.uulm.par.notes;
 
+import de.uulm.par.R;
+import de.uulm.par.R.id;
+import de.uulm.par.R.layout;
+import de.uulm.par.R.menu;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;

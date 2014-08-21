@@ -1,5 +1,9 @@
 package de.uulm.par;
 
+import java.util.LinkedList;
+
+import de.uulm.par.notes.PlainNote;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
