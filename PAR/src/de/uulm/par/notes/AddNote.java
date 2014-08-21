@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * @author Fabian Schwab
+ *
+ */
 public class AddNote extends ActionBarActivity {
 
 	@Override

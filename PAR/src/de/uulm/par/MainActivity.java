@@ -21,12 +21,6 @@ public class MainActivity extends ActionBarActivity {
 	ListView list;
 	LinkedList<PlainNote> notes = new LinkedList<PlainNote>();
 
-	String[] web = { "Time based", "Location based", "Simple note",
-			"Person based", "Location based", "Simple note", "Person based" };
-	Integer[] imageId = { R.drawable.ic_time, R.drawable.ic_location,
-			R.drawable.ic_note, R.drawable.ic_person, R.drawable.ic_location,
-			R.drawable.ic_note, R.drawable.ic_person };
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

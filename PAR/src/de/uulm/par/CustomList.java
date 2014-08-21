@@ -12,12 +12,22 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * @author Fabian Schwab
+ *
+ */
 public class CustomList extends ArrayAdapter<String> {
 	private final Activity context;
 	private final String[] title;
 	private final Integer[] imageId;
 	private final LinkedList<PlainNote> details;
 
+	/**
+	 * @param context
+	 * @param title
+	 * @param imageId
+	 * @param details
+	 */
 	public CustomList(Activity context, String[] title, Integer[] imageId, LinkedList<PlainNote> details) {
 		super(context, R.layout.list_single,title);
 		this.context = context;
