@@ -2,7 +2,6 @@ package de.uulm.par.notes;
 
 import org.joda.time.DateTime;
 
-import de.uulm.par.MainActivity;
 import de.uulm.par.R;
 
 import android.support.v7.app.ActionBarActivity;

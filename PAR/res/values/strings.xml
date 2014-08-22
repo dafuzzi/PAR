@@ -3,16 +3,16 @@
 
     <string name="app_name">PAR</string>
     <string name="action_add_note">New note</string>
-    
+    <string name="action_add_time">New timebased note</string>
     <string name="description_icon">icon</string>
     <string name="description_created">created on</string>
     <string name="description_title">title</string>
     <string name="description_message">message</string>
     <string name="description_info">info</string>
-    
     <string name="title_activity_add_note">New note</string>
     <string name="title_activity_show_note">Details</string>
-    
+    <string name="title_activity_add_time">New timebased note</string>
     <string name="btn_ok">Add note</string>
     <string name="btn_cancel">Cancel</string>
+
 </resources>

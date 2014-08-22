@@ -2,12 +2,12 @@ package de.uulm.par;
 
 import java.util.LinkedList;
 
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import de.uulm.par.notes.PlainNote;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +20,7 @@ import android.widget.TextView;
  * @author Fabian Schwab
  * 
  */
-public class CustomList extends ArrayAdapter<String> {
+@SuppressLint("ViewHolder") public class CustomList extends ArrayAdapter<String> {
 	private final Activity context;
 	private final String[] title;
 	private final Integer[] imageId;
@@ -41,7 +41,7 @@ public class CustomList extends ArrayAdapter<String> {
 		this.details = details;
 	}
 
-	@Override
+	@SuppressLint("InflateParams") @Override
 	public View getView(int position, View view, ViewGroup parent) {
 		LayoutInflater inflater = context.getLayoutInflater();
 		View rowView = inflater.inflate(R.layout.list_single, null, true);

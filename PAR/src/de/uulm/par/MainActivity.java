@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import org.joda.time.DateTime;
 
 import de.uulm.par.notes.AddNote;
+import de.uulm.par.notes.AddTime;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
 import de.uulm.par.notes.ShowNote;
@@ -159,7 +160,11 @@ public class MainActivity extends ActionBarActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_add_note) {
 			Intent intent = new Intent(this, AddNote.class);
-			intent.putExtra("List", notes);
+			startActivityForResult(intent, 1);
+			return true;
+		}
+		if (id == R.id.action_add_time) {
+			Intent intent = new Intent(this, AddTime.class);
 			startActivityForResult(intent, 1);
 			return true;
 		}

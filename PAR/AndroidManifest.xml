@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.uulm.par.notes.AddNote"
+            android:name=".notes.AddNote"
             android:label="@string/title_activity_add_note"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -31,8 +31,16 @@
                 android:value="de.uulm.par.MainActivity" />
         </activity>
         <activity
-            android:name="de.uulm.par.notes.ShowNote"
+            android:name=".notes.ShowNote"
             android:label="@string/title_activity_show_note"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.uulm.par.MainActivity" />
+        </activity>
+        <activity
+            android:name="de.uulm.par.notes.AddTime"
+            android:label="@string/title_activity_add_time"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
