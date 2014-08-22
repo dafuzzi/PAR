@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddNote"
+            android:name="de.uulm.par.notes.AddNote"
             android:label="@string/title_activity_add_note"
             android:parentActivityName=".MainActivity" >
             <meta-data
@@ -31,32 +31,8 @@
                 android:value="de.uulm.par.MainActivity" />
         </activity>
         <activity
-            android:name=".shownotes.ShowNote"
+            android:name="de.uulm.par.notes.ShowNote"
             android:label="@string/title_activity_show_note"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.uulm.par.MainActivity" />
-        </activity>
-        <activity
-            android:name=".shownotes.ShowPerson"
-            android:label="@string/title_activity_show_person"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.uulm.par.MainActivity" />
-        </activity>
-        <activity
-            android:name=".shownotes.ShowAlert"
-            android:label="@string/title_activity_show_alert"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.uulm.par.MainActivity" />
-        </activity>
-        <activity
-            android:name="de.uulm.par.shownotes.ShowLocation"
-            android:label="@string/title_activity_show_location"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

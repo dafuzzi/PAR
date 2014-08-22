@@ -2,15 +2,17 @@
 <resources>
 
     <string name="app_name">PAR</string>
-    <string name="action_add_reminder">add reminder</string>
+    <string name="action_add_note">New note</string>
+    
     <string name="description_icon">icon</string>
     <string name="description_created">created on</string>
     <string name="description_title">title</string>
     <string name="description_message">message</string>
-    <string name="title_activity_add_note">add a new note</string>
-    <string name="title_activity_show_note">note details</string>
-    <string name="title_activity_show_person">note datails</string>
-    <string name="title_activity_show_alert">note details</string>
-    <string name="title_activity_show_location">note details</string>
-
+    <string name="description_info">info</string>
+    
+    <string name="title_activity_add_note">New note</string>
+    <string name="title_activity_show_note">Details</string>
+    
+    <string name="btn_ok">Add note</string>
+    <string name="btn_cancel">Cancel</string>
 </resources>

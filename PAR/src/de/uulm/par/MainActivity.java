@@ -3,15 +3,16 @@ package de.uulm.par;
 import java.util.LinkedList;
 
 import org.joda.time.DateTime;
+
+import de.uulm.par.notes.AddNote;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
-import de.uulm.par.shownotes.ShowAlert;
-import de.uulm.par.shownotes.ShowLocation;
-import de.uulm.par.shownotes.ShowNote;
-import de.uulm.par.shownotes.ShowPerson;
+import de.uulm.par.notes.ShowNote;
+
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,10 +46,9 @@ public class MainActivity extends ActionBarActivity {
 		PlainNote s1 = new PlainNote("Fix bugs in project",
 				"just kidding... there are no bugs ;)", NoteType.SIMPLE,
 				new DateTime());
-		
-		PlainNote p2 = new PlainNote("Seminar",
-				"Talk about the acm seminar", NoteType.PERSON,
-				new DateTime());
+
+		PlainNote p2 = new PlainNote("Seminar", "Talk about the acm seminar",
+				NoteType.PERSON, new DateTime());
 		p2.setPerson("Fabian Maier");
 
 		notes.add(t1);
@@ -58,7 +58,25 @@ public class MainActivity extends ActionBarActivity {
 		notes.add(p2);
 
 		// DUMMY DATA ---- END ----
+		
+//		CustomList adapter = new CustomList(MainActivity.this,
+//				titleBuilder(notes), imageBuilder(notes), notes);
+//		list = (ListView) findViewById(R.id.list);
+//		list.setAdapter(adapter);
+//		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//				Intent intent;
+//				intent = new Intent(getApplicationContext(), ShowNote.class);
+//				intent.putExtra("Note", notes.get(position));
+//				startActivityForResult(intent, 1);
+//			}
+//		});
+	}
 
+	protected void onResume(){
+		super.onResume();
 		CustomList adapter = new CustomList(MainActivity.this,
 				titleBuilder(notes), imageBuilder(notes), notes);
 		list = (ListView) findViewById(R.id.list);
@@ -68,24 +86,25 @@ public class MainActivity extends ActionBarActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Intent intent;
-				switch (notes.get(position).getType()) {
-				case LOCATION:
-					intent = new Intent(getApplicationContext(),ShowLocation.class);
-					break;
-				case DATETIME:
-					intent = new Intent(getApplicationContext(),ShowPerson.class);
-					break;
-				case PERSON:
-					intent = new Intent(getApplicationContext(),ShowAlert.class);
-					break;
-				default:
-					intent = new Intent(getApplicationContext(),ShowNote.class);
-					break;
-				}
+				intent = new Intent(getApplicationContext(), ShowNote.class);
 				intent.putExtra("Note", notes.get(position));
 				startActivity(intent);
 			}
 		});
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			 data.getExtras();
+			 PlainNote note = null;
+			 if (data != null) {
+			 note = (PlainNote) data.getSerializableExtra("Note");
+			 }
+			 if (note != null) {
+				 notes.add(note);
+			 }
+		}
+
 	}
 
 	/**
@@ -138,9 +157,10 @@ public class MainActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_add_reminder) {
+		if (id == R.id.action_add_note) {
 			Intent intent = new Intent(this, AddNote.class);
-			startActivity(intent);
+			intent.putExtra("List", notes);
+			startActivityForResult(intent, 1);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
