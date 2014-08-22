@@ -50,7 +50,7 @@ public class CustomList extends ArrayAdapter<String> {
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
 		TextView txtDetail = (TextView) rowView.findViewById(R.id.detail);
 
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("EEEE, MMMM d, YYYY HH:mm");
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("EEEE, MMMM d. YYYY HH:mm");
 		
 		txtTitle.setText(title[position]);
 		imageView.setImageResource(imageId[position]);

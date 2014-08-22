@@ -1,10 +1,15 @@
 package de.uulm.par.shownotes;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import de.uulm.par.R;
+import de.uulm.par.notes.PlainNote;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class ShowNote extends ActionBarActivity {
 
@@ -12,6 +17,23 @@ public class ShowNote extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_note);
+		Bundle extras = getIntent().getExtras();
+		PlainNote note = null;
+		if (extras != null) {
+		    note = (PlainNote) extras.getSerializable("Note");
+		}
+		if(note != null){
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("EEEE, MMMM d. YYYY HH:mm");
+			TextView title = (TextView) findViewById(R.id.note_title);
+			TextView created = (TextView) findViewById(R.id.note_created);
+			TextView message = (TextView) findViewById(R.id.note_message);
+			
+			title.setText(note.getTitle());
+			created.setText("created on\n" + formatter.print(note.getAlert()));
+			message.setText(note.getMessage());
+			
+		}
+
 	}
 
 	@Override

@@ -70,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
 				Intent intent;
 				switch (notes.get(position).getType()) {
 				case LOCATION:
-					intent = new Intent(getApplicationContext(),ShowNote.class);
+					intent = new Intent(getApplicationContext(),ShowLocation.class);
 					break;
 				case DATETIME:
 					intent = new Intent(getApplicationContext(),ShowPerson.class);
@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
 					intent = new Intent(getApplicationContext(),ShowAlert.class);
 					break;
 				default:
-					intent = new Intent(getApplicationContext(),ShowLocation.class);
+					intent = new Intent(getApplicationContext(),ShowNote.class);
 					break;
 				}
 				intent.putExtra("Note", notes.get(position));
