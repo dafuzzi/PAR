@@ -4,7 +4,9 @@ import java.util.LinkedList;
 
 import org.joda.time.DateTime;
 
+import de.uulm.par.notes.AddLocation;
 import de.uulm.par.notes.AddNote;
+import de.uulm.par.notes.AddPerson;
 import de.uulm.par.notes.AddTime;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
@@ -165,6 +167,16 @@ public class MainActivity extends ActionBarActivity {
 		}
 		if (id == R.id.action_add_time) {
 			Intent intent = new Intent(this, AddTime.class);
+			startActivityForResult(intent, 1);
+			return true;
+		}
+		if (id == R.id.action_add_location) {
+			Intent intent = new Intent(this, AddLocation.class);
+			startActivityForResult(intent, 1);
+			return true;
+		}
+		if (id == R.id.action_add_person) {
+			Intent intent = new Intent(this, AddPerson.class);
 			startActivityForResult(intent, 1);
 			return true;
 		}

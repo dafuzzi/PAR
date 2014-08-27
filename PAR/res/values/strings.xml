@@ -4,6 +4,8 @@
     <string name="app_name">PAR</string>
     <string name="action_add_note">New note</string>
     <string name="action_add_time">New timebased note</string>
+    <string name="action_add_location">New locationbased note</string>
+    <string name="action_add_person">New personbased note</string>
     <string name="description_icon">icon</string>
     <string name="description_created">created on</string>
     <string name="description_title">title</string>
@@ -12,7 +14,11 @@
     <string name="title_activity_add_note">New note</string>
     <string name="title_activity_show_note">Details</string>
     <string name="title_activity_add_time">New timebased note</string>
+    <string name="title_activity_add_location">New locationbased note</string>
+    <string name="title_activity_add_person">New personbase note</string>
     <string name="btn_ok">Add note</string>
-    <string name="btn_cancel">Cancel</string>
+    <string name="btn_setTime">Set time</string>
+    <string name="btn_setDate">Set date</string>
+    <string name="new_time_date"></string>
 
 </resources>

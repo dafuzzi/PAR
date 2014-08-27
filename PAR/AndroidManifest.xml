@@ -39,8 +39,24 @@
                 android:value="de.uulm.par.MainActivity" />
         </activity>
         <activity
-            android:name="de.uulm.par.notes.AddTime"
+            android:name=".notes.AddTime"
             android:label="@string/title_activity_add_time"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.uulm.par.MainActivity" />
+        </activity>
+        <activity
+            android:name=".notes.AddLocation"
+            android:label="@string/title_activity_add_location"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.uulm.par.MainActivity" />
+        </activity>
+        <activity
+            android:name="de.uulm.par.notes.AddPerson"
+            android:label="@string/title_activity_add_person"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

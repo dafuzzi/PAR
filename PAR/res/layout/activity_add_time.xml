@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="de.uulm.par.notes.AddTime" >
-    
+
     <EditText
         android:id="@+id/new_time_title"
         android:layout_width="wrap_content"
@@ -15,8 +15,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="22dp"
-        android:inputType="text"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
@@ -50,4 +50,22 @@
         android:contentDescription="@string/description_icon"
         android:src="@drawable/ic_time" />
 
+    <Button
+        android:id="@+id/btn_setTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_add"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/btn_add"
+        android:text="@string/btn_setTime" />
+
+    <Button
+        android:id="@+id/btn_setDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_setTime"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/btn_setTime"
+        android:text="@string/btn_setDate" />
+    
 </RelativeLayout>

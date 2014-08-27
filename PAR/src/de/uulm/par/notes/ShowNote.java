@@ -34,7 +34,7 @@ public class ShowNote extends ActionBarActivity {
 			ImageView imageView = (ImageView) findViewById(R.id.note_ic);
 
 			title.setText(note.getTitle());
-			created.setText("created on " + formatter.print(note.getAlert()));
+			created.setText("created on " + formatter.print(note.getCreated()));
 			message.setText(note.getMessage());
 
 			switch (note.getType()) {
