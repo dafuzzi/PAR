@@ -36,13 +36,13 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/new_time_title"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/ic_time_note"
+        android:layout_below="@+id/ic_add_time"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textMultiLine" />
 
     <ImageView
-        android:id="@+id/ic_time_note"
+        android:id="@+id/ic_add_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/new_time_message"
@@ -67,5 +67,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/btn_setTime"
         android:text="@string/btn_setDate" />
+    <TextView
+        android:id="@+id/lable_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ic_add_time"
+        android:layout_alignLeft="@+id/new_time_title"
+        android:text="@string/title" />
+
+    <TextView
+        android:id="@+id/label_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/new_time_message"
+        android:layout_below="@+id/new_time_title"
+        android:text="@string/message" />
     
 </RelativeLayout>

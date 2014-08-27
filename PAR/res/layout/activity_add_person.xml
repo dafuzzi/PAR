@@ -7,5 +7,70 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="de.uulm.par.notes.AddPerson" >
+<EditText
+        android:id="@+id/new_person_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="22dp"
+        android:inputType="text"
+        android:ems="10" >
 
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/btn_ok" />
+
+    <EditText
+        android:id="@+id/new_person_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/new_person_title"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ic_add_person"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <ImageView
+        android:id="@+id/ic_add_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/new_person_message"
+        android:layout_alignTop="@+id/new_person_title"
+        android:contentDescription="@string/description_icon"
+        android:src="@drawable/ic_person" />
+
+    <TextView
+        android:id="@+id/lable_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ic_add_person"
+        android:layout_alignLeft="@+id/new_person_title"
+        android:text="@string/title" />
+
+    <TextView
+        android:id="@+id/label_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/new_person_message"
+        android:layout_below="@+id/new_person_title"
+        android:text="@string/message" />
+
+    <Button
+        android:id="@+id/btn_addPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_add"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/btn_person" />
 </RelativeLayout>

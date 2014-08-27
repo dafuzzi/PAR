@@ -49,5 +49,21 @@
         android:layout_alignTop="@+id/new_note_title"
         android:contentDescription="@string/description_icon"
         android:src="@drawable/ic_note" />
+    
+    <TextView
+        android:id="@+id/lable_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ic_add_note"
+        android:layout_alignLeft="@+id/new_note_title"
+        android:text="@string/title" />
+
+    <TextView
+        android:id="@+id/label_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/new_note_message"
+        android:layout_below="@+id/new_note_title"
+        android:text="@string/message" />
 
 </RelativeLayout>

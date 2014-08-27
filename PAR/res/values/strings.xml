@@ -20,5 +20,8 @@
     <string name="btn_setTime">Set time</string>
     <string name="btn_setDate">Set date</string>
     <string name="new_time_date"></string>
-
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="btn_location" >Set location</string>
+    <string name="btn_person">Add person</string>
 </resources>
