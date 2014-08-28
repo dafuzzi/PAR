@@ -3,7 +3,7 @@
     package="de.uulm.par"
     android:versionCode="1"
     android:versionName="1.0" >
-
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="10" />
@@ -24,16 +24,14 @@
         </activity>
         <activity
             android:name=".notes.AddNote"
-            android:label="@string/title_activity_add_note"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_add_note" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.uulm.par.MainActivity" />
         </activity>
         <activity
             android:name=".notes.ShowNote"
-            android:label="@string/title_activity_show_note"
-            android:parentActivityName=".MainActivity" >
+            android:label="@string/title_activity_show_note" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.uulm.par.MainActivity" />
