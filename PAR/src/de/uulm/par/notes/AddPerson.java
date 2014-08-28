@@ -62,7 +62,8 @@ public class AddPerson extends ActionBarActivity {
          if (resultCode == Activity.RESULT_OK)
          {
              Uri contactData = data.getData();
-             Cursor c = managedQuery(contactData, null, null, null, null);
+             @SuppressWarnings("deprecation")
+			Cursor c = managedQuery(contactData, null, null, null, null);
           if (c.moveToFirst())
           {
           String id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
@@ -72,7 +73,7 @@ public class AddPerson extends ActionBarActivity {
 
           if (hasPhone.equalsIgnoreCase("1")) 
           {
-         Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, 
+          Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null, 
           ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id,null, null);
             phones.moveToFirst();
             String cNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
