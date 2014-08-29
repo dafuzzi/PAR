@@ -5,7 +5,11 @@ import org.joda.time.format.DateTimeFormatter;
 
 import de.uulm.par.R;
 import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,13 +18,13 @@ import android.widget.TextView;
  *
  */
 public class ShowNote extends ActionBarActivity {
-
+	PlainNote note;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_note);
 		Bundle extras = getIntent().getExtras();
-		PlainNote note = null;
+		note = null;
 		if (extras != null) {
 			note = (PlainNote) extras.getSerializable("Note");
 		}
@@ -39,7 +43,7 @@ public class ShowNote extends ActionBarActivity {
 
 			switch (note.getType()) {
 			case PERSON:
-				info.setText("When " + note.getPerson() + " is near you.");
+				info.setText("When " + note.getPerson().getName() + " is near you.");
 				imageView.setImageResource(R.drawable.ic_person);
 				break;
 			case LOCATION:
@@ -55,7 +59,19 @@ public class ShowNote extends ActionBarActivity {
 				imageView.setImageResource(R.drawable.ic_note);
 				break;
 			}
-
+			Button del = (Button)findViewById(R.id.btn_delete);
+			del.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Intent returnIntent = new Intent();
+					returnIntent.putExtra("Note",note);
+					returnIntent.putExtra("Delete", true);
+					setResult(RESULT_OK,returnIntent);
+					finish();
+					
+				}
+			});
 		}
 
 	}

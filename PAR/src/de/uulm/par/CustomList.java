@@ -57,7 +57,7 @@ import android.widget.TextView;
 
 		switch (details.get(position).getType()) {
 		case PERSON:
-			txtDetail.setText("When " + details.get(position).getPerson() + " is near you.");
+			txtDetail.setText("When " + details.get(position).getPerson().getName() + " is near you.");
 			break;
 		case LOCATION:
 			txtDetail.setText("When you are at " + details.get(position).getLocation());

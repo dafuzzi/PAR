@@ -3,40 +3,37 @@ package de.uulm.par.notes;
 import org.joda.time.DateTime;
 
 import de.uulm.par.R;
+import de.uulm.par.SimplePerson;
 import android.support.v7.app.ActionBarActivity;
-import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.Contacts;
 
+/**
+ * @author Fabian Schwab
+ *
+ */
 public class AddPerson extends ActionBarActivity {
-	private String personMac;
-	@SuppressLint("InlinedApi")
-	private static final String[] PROJECTION = { Contacts.CONTENT_ITEM_TYPE
-
-	};
+	private SimplePerson person;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_person);
 
-		final TextView title = (TextView) findViewById(R.id.new_location_title);
-		final TextView message = (TextView) findViewById(R.id.new_location_message);
-
+		final TextView title = (TextView) findViewById(R.id.new_person_title);
+		final TextView message = (TextView) findViewById(R.id.new_person_message);
+		person = null;
 		Button mac = (Button) findViewById(R.id.btn_addPerson);
+		Button add = (Button) findViewById(R.id.btn_add);
+
 		mac.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -46,13 +43,12 @@ public class AddPerson extends ActionBarActivity {
 			}
 		});
 
-		Button add = (Button) findViewById(R.id.btn_add);
 		add.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				PlainNote addingNote = new PlainNote(title.getText().toString(), message.getText().toString(), NoteType.PERSON, new DateTime());
-				addingNote.setLocation("Uni Ulm");
+				addingNote.setPerson(person);
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("Note", addingNote);
 				setResult(RESULT_OK, returnIntent);
@@ -76,9 +72,7 @@ public class AddPerson extends ActionBarActivity {
 				int mimeIdx;
 				int nameIdx;
 
-				String name, mac;
-				name = "";
-				mac = "";
+				String name, macadr = "";
 
 				if (cursor.moveToFirst()) {
 					nameIdx = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
@@ -95,11 +89,11 @@ public class AddPerson extends ActionBarActivity {
 							// TODO match on mac address pattern but for now IM works fine
 							mime = cursor.getString(mimeIdx);
 							if (ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE.equalsIgnoreCase(mime)) {
-								mac = cursor.getString(dataIdx);
+								macadr = cursor.getString(dataIdx);
 							}
 						} while (cursor.moveToNext());
 					}
-					//Log.d("Contact", name + " " + mac + " " + mime);
+					person = new SimplePerson(name, macadr);
 				}
 			}
 		}

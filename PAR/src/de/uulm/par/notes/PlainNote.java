@@ -3,6 +3,8 @@ package de.uulm.par.notes;
 import java.io.Serializable;
 import org.joda.time.DateTime;
 
+import de.uulm.par.SimplePerson;
+
 /**
  * @author Fabian Schwab
  *
@@ -17,7 +19,7 @@ public class PlainNote implements Serializable {
 	private NoteType type;
 	private DateTime created;
 	private DateTime alert;
-	private String person;
+	private SimplePerson person;
 	private String location;
 	
 	/**
@@ -105,14 +107,14 @@ public class PlainNote implements Serializable {
 	/**
 	 * @return
 	 */
-	public String getPerson() {
+	public SimplePerson getPerson() {
 		return person;
 	}
 
 	/**
 	 * @param person
 	 */
-	public void setPerson(String person) {
+	public void setPerson(SimplePerson person) {
 		this.person = person;
 	}
 
