@@ -6,11 +6,13 @@ import de.uulm.par.notes.AddLocation;
 import de.uulm.par.notes.AddNote;
 import de.uulm.par.notes.AddPerson;
 import de.uulm.par.notes.AddTime;
+import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
 import de.uulm.par.notes.ShowNote;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
 	private ListView list;
 	private LinkedList<PlainNote> notes = new LinkedList<PlainNote>();
 	private PlainNote lastNote;
+	
+	private Notification resultReceiver = new Notification(null);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,17 @@ public class MainActivity extends ActionBarActivity {
 			if (note != null) {
 				if (requestCode == ADD) {
 					notes.add(note);
+					if(note.getType()==NoteType.PERSON){
+//						Intent startPARservice = new Intent(this, PARService.class);
+//						startPARservice.putExtra("MAC", note.getPerson().getMac());
+//						startService(startPARservice);
+						
+//						Intent intent = new Intent(getApplicationContext(), MISService.class);
+//						intent.putExtra("receiver", resultReceiver);
+//						intent.putExtra("operation", "add");
+//						intent.putExtra("client", new Client(note.getPerson().getName(), note.getPerson().getMac()));
+//						startService(intent);
+					}
 				} else if (requestCode == SHOW) {
 					if (data.hasExtra("Delete")) {
 						notes.remove(lastNote);
