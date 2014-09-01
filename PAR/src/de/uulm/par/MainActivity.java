@@ -12,7 +12,6 @@ import de.uulm.par.notes.ShowNote;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,13 +33,14 @@ public class MainActivity extends ActionBarActivity {
 	private PlainNote lastNote;
 	
 	private Notification resultReceiver = new Notification(null);
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	}
-
+	
+	@Override
 	protected void onResume() {
 		super.onResume();
 		CustomList adapter = new CustomList(MainActivity.this, titleBuilder(notes), imageBuilder(notes), notes);
@@ -57,6 +57,37 @@ public class MainActivity extends ActionBarActivity {
 			}
 		});
 	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.action_add_note) {
+			Intent intent = new Intent(this, AddNote.class);
+			startActivityForResult(intent, ADD);
+			return true;
+		}
+		if (id == R.id.action_add_time) {
+			Intent intent = new Intent(this, AddTime.class);
+			startActivityForResult(intent, ADD);
+			return true;
+		}
+		if (id == R.id.action_add_location) {
+			Intent intent = new Intent(this, AddLocation.class);
+			startActivityForResult(intent, ADD);
+			return true;
+		}
+		if (id == R.id.action_add_person) {
+			Intent intent = new Intent(this, AddPerson.class);
+			startActivityForResult(intent, ADD);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
@@ -69,15 +100,13 @@ public class MainActivity extends ActionBarActivity {
 				if (requestCode == ADD) {
 					notes.add(note);
 					if(note.getType()==NoteType.PERSON){
-//						Intent startPARservice = new Intent(this, PARService.class);
-//						startPARservice.putExtra("MAC", note.getPerson().getMac());
-//						startService(startPARservice);
-						
-//						Intent intent = new Intent(getApplicationContext(), MISService.class);
-//						intent.putExtra("receiver", resultReceiver);
-//						intent.putExtra("operation", "add");
-//						intent.putExtra("client", new Client(note.getPerson().getName(), note.getPerson().getMac()));
-//						startService(intent);
+						Intent intent = new Intent("de.uulm.miss.MISService");
+						//intent.setComponent(new ComponentName("de.uulm.miss", "de.uulm.miss.misservice"));
+						intent.putExtra("receiver", resultReceiver);
+						intent.putExtra("operation", "add");
+						intent.putExtra("client_name", note.getPerson().getName());
+						intent.putExtra("client_mac", note.getPerson().getMac());
+						startService(intent);
 					}
 				} else if (requestCode == SHOW) {
 					if (data.hasExtra("Delete")) {
@@ -123,37 +152,5 @@ public class MainActivity extends ActionBarActivity {
 			res[i] = notes.get(i).getTitle();
 		}
 		return res;
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-		if (id == R.id.action_add_note) {
-			Intent intent = new Intent(this, AddNote.class);
-			startActivityForResult(intent, ADD);
-			return true;
-		}
-		if (id == R.id.action_add_time) {
-			Intent intent = new Intent(this, AddTime.class);
-			startActivityForResult(intent, ADD);
-			return true;
-		}
-		if (id == R.id.action_add_location) {
-			Intent intent = new Intent(this, AddLocation.class);
-			startActivityForResult(intent, ADD);
-			return true;
-		}
-		if (id == R.id.action_add_person) {
-			Intent intent = new Intent(this, AddPerson.class);
-			startActivityForResult(intent, ADD);
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 }
