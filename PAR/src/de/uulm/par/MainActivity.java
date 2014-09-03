@@ -10,11 +10,17 @@ import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
 import de.uulm.par.notes.ShowNote;
 
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -50,7 +56,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	private LinkedList<PlainNote> notes = new LinkedList<PlainNote>();
 	private PlainNote lastNote;
 
-	private final Messenger mMessenger = new Messenger(new IncomingMessageHandler());
+	private final Messenger mMessenger = new Messenger(new IncomingMessageHandler(this));
 	private ServiceConnection mConnection = this;
 	private Messenger mServiceMessenger = null;
 	boolean mIsBound;
@@ -93,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	@Override
 	public void onServiceConnected(ComponentName name, IBinder service) {
 		mServiceMessenger = new Messenger(service);
-		Log.d(LOGTAG,"onServiceConnected");
+		Log.d(LOGTAG, "onServiceConnected");
 		try {
 			Message msg = Message.obtain(null, MSG_REGISTER_APPLICATION);
 			msg.replyTo = mMessenger;
@@ -110,7 +116,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 		// This is called when the connection with the service has been
 		// unexpectedly disconnected - process crashed.
 		mServiceMessenger = null;
-		Log.d(LOGTAG,"onServiceDisconnected");
+		Log.d(LOGTAG, "onServiceDisconnected");
 	}
 
 	@Override
@@ -159,7 +165,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 						Bundle b = new Bundle();
 						b.putString("MAC", note.getPerson().getMac());
 						b.putString("Name", note.getPerson().getName());
-						sendMessageToService(b);
+						sendMessageToService(b, MSG_ADD_CLIENT);
 					}
 				} else if (requestCode == SHOW) {
 					if (data.hasExtra("Delete")) {
@@ -211,29 +217,55 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	 * Handle incoming messages from MyService
 	 */
 	private class IncomingMessageHandler extends Handler {
+		MainActivity main;
+		public IncomingMessageHandler(MainActivity parent) {
+			main = parent;
+		}
+
 		@Override
 		public void handleMessage(Message msg) {
-			Log.d(LOGTAG,"IncomingHandler: " + msg.what);
-			// switch (msg.what) {
-			// case MyService.MSG_SET_INT_VALUE:
-			// textIntValue.setText("Int Message: " + msg.arg1);
-			// break;
-			// case MyService.MSG_SET_STRING_VALUE:
-			// String str1 = msg.getData().getString("str1");
-			// textStrValue.setText("Str Message: " + str1);
-			// break;
-			// default:
-			// super.handleMessage(msg);
+			Log.d(LOGTAG, "IncomingHandler: " + msg.what);
+			switch (msg.what) {
+			case MSG_FOUND_DEVICE:
+				Bundle b = new Bundle();
+				b.putString("MAC", (String) msg.getData().get("MAC"));
+				b.putString("Name", (String) msg.getData().get("Name"));
+				sendMessageToService(b, MSG_REMOVE_CLIENT);
+				main.doNotification((String) msg.getData().get("Name"));
+				break;
+			default:
+				super.handleMessage(msg);
+			}
 		}
+
+
 	}
-	
+	private void doNotification(String name) {
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_launcher).setContentTitle("PAR").setContentText(name + " is near you and linked with a note.");
+		Intent resultIntent = new Intent(this, MainActivity.class);
+		PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		mBuilder.setContentIntent(resultPendingIntent);
+		// Sets an ID for the notification
+		int mNotificationId = 001;
+		
+		//Sound
+		Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		mBuilder.setSound(alarmSound);
+		
+		// Gets an instance of the NotificationManager service
+		NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		// Builds the notification and issues it.
+		mNotifyMgr.notify(mNotificationId, mBuilder.build());
+		
+	}
+
 	/**
 	 * 
 	 */
 	private void doBindService() {
 		bindService(new Intent("de.uulm.miss.MISService"), mConnection, Context.BIND_AUTO_CREATE);
 		mIsBound = true;
-		Log.d(LOGTAG,"Binding.");
+		Log.d(LOGTAG, "Binding.");
 	}
 
 	/**
@@ -241,27 +273,30 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	 */
 	private void doUnbindService() {
 		if (mIsBound) {
-			// If we have received the service, and hence registered with it, then now is the time to unregister.
+			// If we have received the service, and hence registered with it,
+			// then now is the time to unregister.
 			if (mServiceMessenger != null) {
 				try {
 					Message msg = Message.obtain(null, MSG_UNREGISTER_APPLICATION);
 					msg.replyTo = mMessenger;
 					mServiceMessenger.send(msg);
 				} catch (RemoteException e) {
-					// There is nothing special we need to do if the service has crashed.
+					// There is nothing special we need to do if the service has
+					// crashed.
 				}
 			}
 			// Detach our existing connection.
 			unbindService(mConnection);
 			mIsBound = false;
-			Log.d(LOGTAG,"Unbinding.");
+			Log.d(LOGTAG, "Unbinding.");
 		}
 	}
-	private void sendMessageToService(Bundle data) {
+
+	private void sendMessageToService(Bundle data, int action) {
 		if (mIsBound) {
 			if (mServiceMessenger != null) {
 				try {
-					Message msg = Message.obtain(null,MSG_ADD_CLIENT);
+					Message msg = Message.obtain(null, action);
 					msg.setData(data);
 					msg.replyTo = mMessenger;
 					mServiceMessenger.send(msg);
