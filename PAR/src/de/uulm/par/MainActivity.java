@@ -12,7 +12,6 @@ import de.uulm.par.notes.ShowNote;
 
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -169,6 +168,12 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 					}
 				} else if (requestCode == SHOW) {
 					if (data.hasExtra("Delete")) {
+						if(lastNote.getType() == NoteType.PERSON){
+							Bundle b = new Bundle();
+							b.putString("MAC", lastNote.getPerson().getMac());
+							b.putString("Name", lastNote.getPerson().getName());
+							sendMessageToService(b, MSG_REMOVE_CLIENT);
+						}
 						notes.remove(lastNote);
 					}
 				}
@@ -231,7 +236,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 				b.putString("MAC", (String) msg.getData().get("MAC"));
 				b.putString("Name", (String) msg.getData().get("Name"));
 				sendMessageToService(b, MSG_REMOVE_CLIENT);
-				main.doNotification((String) msg.getData().get("Name"));
+				main.doNotification((String) msg.getData().get("MAC"));
 				break;
 			default:
 				super.handleMessage(msg);
@@ -240,9 +245,17 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 
 
 	}
-	private void doNotification(String name) {
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_launcher).setContentTitle("PAR").setContentText(name + " is near you and linked with a note.");
+	private void doNotification(String mac) {
+		
 		Intent resultIntent = new Intent(this, MainActivity.class);
+		for (PlainNote n : notes) {
+			if(n.getPerson().getMac()==mac){
+				resultIntent = new Intent(this, ShowNote.class);
+				resultIntent.putExtra("Note", n);
+				break;
+			}
+		}
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_note).setContentTitle("PAR").setContentText(mac + " is near you and linked with a note.");
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 		// Sets an ID for the notification
