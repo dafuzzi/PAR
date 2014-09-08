@@ -40,16 +40,26 @@ public class NotesDataSource {
 		dbHelper.close();
 	}
 
-	public void insetNote(PlainNote note) {
+	public void insertNote(PlainNote note) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_TITLE, note.getTitle());
 		values.put(MySQLiteHelper.COLUMN_MESSAGE, note.getMessage());
 		values.put(MySQLiteHelper.COLUMN_TYPE, note.getType().ordinal());
 		values.put(MySQLiteHelper.COLUMN_DATE_CREATE, note.getCreated().toString());
-		values.put(MySQLiteHelper.COLUMN_DATE_ALERT, note.getAlert().toString());
-		values.put(MySQLiteHelper.COLUMN_PERSON_NAME, note.getPerson().getName());
-		values.put(MySQLiteHelper.COLUMN_PERSON_MAC, note.getPerson().getMac());
-		values.put(MySQLiteHelper.COLUMN_LOCATION, note.getLocation());
+		switch (note.getType()) {
+		case DATETIME:
+			values.put(MySQLiteHelper.COLUMN_DATE_ALERT, note.getAlert().toString());
+			break;
+		case PERSON:
+			values.put(MySQLiteHelper.COLUMN_PERSON_NAME, note.getPerson().getName());
+			values.put(MySQLiteHelper.COLUMN_PERSON_MAC, note.getPerson().getMac());
+			break;
+		case LOCATION:
+			values.put(MySQLiteHelper.COLUMN_LOCATION, note.getLocation());
+			break;
+		default:
+			break;
+		}
 
 		long insertId = database.insert(MySQLiteHelper.TABLE_NOTES, null, values);
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_NOTES, allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
