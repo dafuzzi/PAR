@@ -1,10 +1,13 @@
-package de.uulm.par;
+package de.uulm.par.sql;
 
 import java.util.LinkedList;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import de.uulm.par.R;
+import de.uulm.par.R.id;
+import de.uulm.par.R.layout;
 import de.uulm.par.notes.PlainNote;
 
 import android.annotation.SuppressLint;

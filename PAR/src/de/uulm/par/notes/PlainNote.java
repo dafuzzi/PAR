@@ -7,13 +7,14 @@ import de.uulm.par.SimplePerson;
 
 /**
  * @author Fabian Schwab
- *
+ * 
  */
 public class PlainNote implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private long id;
 	private String title;
 	private String message;
 	private NoteType type;
@@ -21,20 +22,39 @@ public class PlainNote implements Serializable {
 	private DateTime alert;
 	private SimplePerson person;
 	private String location;
-	
+
 	/**
 	 * @param title
 	 * @param message
 	 * @param type
 	 * @param created
 	 */
-	public PlainNote(String title, String message, NoteType type,
-			DateTime created) {
+	public PlainNote(String title, String message, NoteType type, DateTime created) {
 		super();
 		this.title = title;
 		this.message = message;
 		this.type = type;
 		this.created = created;
+	}
+	/**
+	 * 
+	 */
+	public PlainNote(){
+		super();
+	}
+	
+	/**
+	 * @return
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	/**

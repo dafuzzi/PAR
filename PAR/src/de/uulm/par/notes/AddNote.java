@@ -31,12 +31,10 @@ public class AddNote extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				PlainNote addingNote = new PlainNote(
-						title.getText().toString(), message.getText()
-								.toString(), NoteType.SIMPLE, new DateTime());
+				PlainNote addingNote = new PlainNote(title.getText().toString(), message.getText().toString(), NoteType.SIMPLE, new DateTime());
 				Intent returnIntent = new Intent();
-				returnIntent.putExtra("Note",addingNote);
-				setResult(RESULT_OK,returnIntent);
+				returnIntent.putExtra("Note", addingNote);
+				setResult(RESULT_OK, returnIntent);
 				finish();
 			}
 		});

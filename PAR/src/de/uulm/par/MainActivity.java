@@ -1,6 +1,7 @@
 package de.uulm.par;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import de.uulm.par.notes.AddLocation;
 import de.uulm.par.notes.AddNote;
@@ -9,6 +10,9 @@ import de.uulm.par.notes.AddTime;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
 import de.uulm.par.notes.ShowNote;
+import de.uulm.par.sql.Comment;
+import de.uulm.par.sql.NotesDataSource;
+import de.uulm.par.sql.CustomList;
 
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -31,6 +35,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
@@ -59,12 +64,26 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	private ServiceConnection mConnection = this;
 	private Messenger mServiceMessenger = null;
 	boolean mIsBound;
+	
+	private NotesDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		doBindService();
+		
+//		datasource = new NotesDataSource(this);
+//	    datasource.open();
+//
+//	    List<Comment> values = datasource.getAllComments();
+//
+//	    // use the SimpleCursorAdapter to show the
+//	    // elements in a ListView
+//	    ArrayAdapter<Comment> adapter = new ArrayAdapter<Comment>(this,
+//	        android.R.layout.simple_list_item_1, values);
+//	    //setListAdapter(adapter);
+		//TODO db read and wirte
 	}
 
 	@Override
