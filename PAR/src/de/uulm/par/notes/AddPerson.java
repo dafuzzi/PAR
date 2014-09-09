@@ -86,7 +86,7 @@ public class AddPerson extends ActionBarActivity {
 						mimeIdx = cursor.getColumnIndex(ContactsContract.Contacts.Data.MIMETYPE);
 						dataIdx = cursor.getColumnIndex(ContactsContract.Contacts.Data.DATA1);
 						do {
-							// TODO match on mac address pattern but for now IM works fine
+							// TODO match on MAC address pattern but for now IM works fine
 							mime = cursor.getString(mimeIdx);
 							if (ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE.equalsIgnoreCase(mime)) {
 								macadr = cursor.getString(dataIdx);

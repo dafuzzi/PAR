@@ -13,6 +13,10 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
+/**
+ * @author Fabian Schwab
+ *
+ */
 public class AddLocation extends ActionBarActivity {
 
 	@Override

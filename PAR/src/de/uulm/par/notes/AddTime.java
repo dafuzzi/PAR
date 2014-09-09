@@ -83,6 +83,10 @@ public class AddTime extends ActionBarActivity {
 		
 	}
 	
+	/**
+	 * @author Fabian Schwab
+	 *
+	 */
 	public static class TimePickerFragment extends DialogFragment implements
 			TimePickerDialog.OnTimeSetListener {
 
@@ -104,14 +108,22 @@ public class AddTime extends ActionBarActivity {
 			// Do something with the time chosen by the user
 			time = hourOfDay + ":" + minute;
 		}
+		/**
+		 * @return
+		 */
 		public String getTime(){
 			return time;
 		}
 	}
 	
+	/**
+	 * @author Fabian Schwab
+	 *
+	 */
 	public static class DatePickerFragment extends DialogFragment implements
 			DatePickerDialog.OnDateSetListener {
 		String date;
+
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			// Use the current date as the default date in the picker
@@ -124,10 +136,14 @@ public class AddTime extends ActionBarActivity {
 			return new DatePickerDialog(getActivity(), this, year, month, day);
 		}
 
+
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			month++;
 			date = day + "." + month + "." + year;
 		}
+		/**
+		 * @return
+		 */
 		public String getDate(){
 			return date;
 		}

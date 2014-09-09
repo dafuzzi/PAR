@@ -1,7 +1,6 @@
 package de.uulm.par;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import de.uulm.par.notes.AddLocation;
 import de.uulm.par.notes.AddNote;
@@ -10,7 +9,6 @@ import de.uulm.par.notes.AddTime;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
 import de.uulm.par.notes.ShowNote;
-import de.uulm.par.sql.Comment;
 import de.uulm.par.sql.NotesDataSource;
 import de.uulm.par.sql.CustomList;
 
@@ -35,7 +33,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
@@ -258,6 +255,9 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 
 	}
 
+	/**
+	 * @param mac
+	 */
 	private void doNotification(String mac) {
 
 		Intent resultIntent = new Intent(this, MainActivity.class);
@@ -319,6 +319,10 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 		}
 	}
 
+	/**
+	 * @param data
+	 * @param action
+	 */
 	private void sendMessageToService(Bundle data, int action) {
 		if (mIsBound) {
 			if (mServiceMessenger != null) {

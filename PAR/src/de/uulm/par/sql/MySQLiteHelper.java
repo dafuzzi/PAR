@@ -5,6 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * @author Fabian Schwab
+ *
+ */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public static final String TABLE_NOTES = "notes";
@@ -25,6 +29,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_CREATE = "create table " + TABLE_NOTES + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_TITLE + " text not null, " + COLUMN_MESSAGE
 			+ " text, " + COLUMN_TYPE + " integer, " + COLUMN_DATE_CREATE + " text, " + COLUMN_DATE_ALERT + " text, " + COLUMN_PERSON_NAME + " text, " + COLUMN_PERSON_MAC + " text, " + COLUMN_LOCATION + " text " + ");";
 
+	/**
+	 * @param context
+	 */
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

@@ -17,6 +17,10 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * @author Fabian Schwab
+ *
+ */
 public class NotesDataSource {
 
 	DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -28,6 +32,9 @@ public class NotesDataSource {
 	private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_MESSAGE, MySQLiteHelper.COLUMN_TYPE, MySQLiteHelper.COLUMN_DATE_CREATE,
 			MySQLiteHelper.COLUMN_DATE_ALERT, MySQLiteHelper.COLUMN_PERSON_NAME, MySQLiteHelper.COLUMN_PERSON_MAC, MySQLiteHelper.COLUMN_LOCATION };
 
+	/**
+	 * @param context
+	 */
 	public NotesDataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 	}
@@ -40,6 +47,9 @@ public class NotesDataSource {
 		dbHelper.close();
 	}
 
+	/**
+	 * @param note
+	 */
 	public void insertNote(PlainNote note) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_TITLE, note.getTitle());
@@ -68,12 +78,18 @@ public class NotesDataSource {
 		Log.d(LOGTAG, "Note added with id: " + insertId);
 	}
 
+	/**
+	 * @param note
+	 */
 	public void deleteNote(PlainNote note) {
 		long id = note.getId();
 		database.delete(MySQLiteHelper.TABLE_NOTES, MySQLiteHelper.COLUMN_ID + " = " + id, null);
 		Log.d(LOGTAG, "Note deleted with id: " + id);
 	}
 
+	/**
+	 * @return
+	 */
 	public LinkedList<PlainNote> getAllNotes() {
 		Cursor cursor = database.query(MySQLiteHelper.TABLE_NOTES, allColumns, null, null, null, null, null);
 		cursor.moveToFirst();
@@ -87,6 +103,10 @@ public class NotesDataSource {
 		return result;
 	}
 
+	/**
+	 * @param cursor
+	 * @return
+	 */
 	private PlainNote cursorToNote(Cursor cursor) {
 		PlainNote note = new PlainNote();
 		note.setId(cursor.getLong(0));

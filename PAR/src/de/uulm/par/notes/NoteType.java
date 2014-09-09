@@ -7,6 +7,10 @@ package de.uulm.par.notes;
 public enum NoteType {
 	LOCATION,DATETIME,PERSON,SIMPLE;
 	
+	/**
+	 * @param x
+	 * @return
+	 */
 	public static NoteType fromInteger(int x) {
         switch(x) {
         case 0:
