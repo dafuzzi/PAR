@@ -1,6 +1,7 @@
 package de.uulm.par;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import de.uulm.par.notes.AddLocation;
 import de.uulm.par.notes.AddNote;
@@ -9,6 +10,9 @@ import de.uulm.par.notes.AddTime;
 import de.uulm.par.notes.NoteType;
 import de.uulm.par.notes.PlainNote;
 import de.uulm.par.notes.ShowNote;
+import de.uulm.par.sql.Comment;
+import de.uulm.par.sql.NotesDataSource;
+import de.uulm.par.sql.CustomList;
 
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -31,6 +35,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
@@ -60,9 +65,14 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	private Messenger mServiceMessenger = null;
 	boolean mIsBound;
 
+	private NotesDataSource datasource;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		datasource = new NotesDataSource(this);
+		datasource.open();
+		notes = datasource.getAllNotes();
 		setContentView(R.layout.activity_main);
 		doBindService();
 	}
@@ -160,6 +170,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 			if (note != null) {
 				if (requestCode == ADD) {
 					notes.add(note);
+					datasource.insertNote(note);
 					if (note.getType() == NoteType.PERSON) {
 						Bundle b = new Bundle();
 						b.putString("MAC", note.getPerson().getMac());
@@ -168,12 +179,13 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 					}
 				} else if (requestCode == SHOW) {
 					if (data.hasExtra("Delete")) {
-						if(lastNote.getType() == NoteType.PERSON){
+						if (lastNote.getType() == NoteType.PERSON) {
 							Bundle b = new Bundle();
 							b.putString("MAC", lastNote.getPerson().getMac());
 							b.putString("Name", lastNote.getPerson().getName());
 							sendMessageToService(b, MSG_REMOVE_CLIENT);
 						}
+						datasource.deleteNote(lastNote);
 						notes.remove(lastNote);
 					}
 				}
@@ -223,6 +235,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	 */
 	private class IncomingMessageHandler extends Handler {
 		MainActivity main;
+
 		public IncomingMessageHandler(MainActivity parent) {
 			main = parent;
 		}
@@ -243,33 +256,34 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 			}
 		}
 
-
 	}
+
 	private void doNotification(String mac) {
-		
+
 		Intent resultIntent = new Intent(this, MainActivity.class);
 		for (PlainNote n : notes) {
-			if(n.getPerson().getMac()==mac){
+			if (n.getPerson().getMac() == mac) {
 				resultIntent = new Intent(this, ShowNote.class);
 				resultIntent.putExtra("Note", n);
 				break;
 			}
 		}
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_note).setContentTitle("PAR").setContentText(mac + " is near you and linked with a note.");
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_note).setContentTitle("PAR")
+				.setContentText(mac + " is near you and linked with a note.");
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 		// Sets an ID for the notification
 		int mNotificationId = 001;
-		
-		//Sound
+
+		// Sound
 		Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		mBuilder.setSound(alarmSound);
-		
+
 		// Gets an instance of the NotificationManager service
 		NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		// Builds the notification and issues it.
 		mNotifyMgr.notify(mNotificationId, mBuilder.build());
-		
+
 	}
 
 	/**
