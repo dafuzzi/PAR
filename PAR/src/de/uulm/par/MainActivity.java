@@ -73,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 		datasource = new NotesDataSource(this);
 		datasource.open();
 		//TODO macht problem endlosschleife
-		//notes = datasource.getAllNotes();
+		notes = datasource.getAllNotes();
 		setContentView(R.layout.activity_main);
 		doBindService();
 	}

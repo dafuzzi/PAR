@@ -79,7 +79,9 @@ public class NotesDataSource {
 		cursor.moveToFirst();
 		LinkedList<PlainNote> result = new LinkedList<PlainNote>();
 		while (!cursor.isAfterLast()) {
+			Log.d(LOGTAG,"adding....");
 			result.add(cursorToNote(cursor));
+			cursor.moveToNext();
 		}
 		cursor.close();
 		return result;
@@ -99,6 +101,7 @@ public class NotesDataSource {
 		} else if (note.getType() == NoteType.LOCATION) {
 			note.setLocation(cursor.getString(8));
 		}
-		return null;
+		//Log.d(LOGTAG, note.getId() + " " + note.getTitle() + " " + note.getMessage().substring(0, 10) + "... " + note.getType() + " " + note.getCreated());
+		return note;
 	}
 }
