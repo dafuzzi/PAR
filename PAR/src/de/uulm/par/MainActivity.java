@@ -68,6 +68,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		datasource = new NotesDataSource(this);
+		Log.d(LOGTAG,"DB open on Create");
 		datasource.open();
 		notes = datasource.getAllNotes();
 		setContentView(R.layout.activity_main);
@@ -77,6 +78,8 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	@Override
 	protected void onResume() {
 		super.onResume();
+		datasource.open(); 
+		Log.d(LOGTAG,"DB open on Resume");
 		CustomList adapter = new CustomList(MainActivity.this, titleBuilder(notes), imageBuilder(notes), notes);
 		list = (ListView) findViewById(R.id.list);
 		list.setAdapter(adapter);
@@ -95,11 +98,19 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		try {
-			doUnbindService();
-		} catch (Throwable t) {
-			Log.d(LOGTAG, "Failed to unbind from the service: ", t);
-		}
+		Log.d(LOGTAG,"DB close on Destroy");
+		datasource.close();
+//		try {
+//			doUnbindService();
+//		} catch (Throwable t) {
+//			Log.d(LOGTAG, "Failed to unbind from the service: ", t);
+//		}
+	}
+	@Override
+	protected void onPause(){
+		super.onPause();
+		datasource.close();
+		Log.d(LOGTAG,"DB close on Pause");
 	}
 
 	@Override
@@ -158,6 +169,8 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d(LOGTAG,"DB open on Result");
+		datasource.open();
 		if (resultCode == RESULT_OK) {
 			data.getExtras();
 			PlainNote note = null;
