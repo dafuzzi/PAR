@@ -272,17 +272,18 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	 * @param mac
 	 */
 	private void doNotification(String mac) {
-
+		String person = null;
 		Intent resultIntent = new Intent(this, MainActivity.class);
 		for (PlainNote n : notes) {
-			if (n.getPerson().getMac() == mac) {
+			if (n.getType() == NoteType.PERSON && n.getPerson().getMac() == mac) {
 				resultIntent = new Intent(this, ShowNote.class);
 				resultIntent.putExtra("Note", n);
+				person = n.getPerson().getName();
 				break;
 			}
 		}
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_stat_note).setContentTitle("PAR")
-				.setContentText(mac + " is near you and linked with a note.");
+				.setContentText(person + " is near you and linked with a note.");
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 		// Sets an ID for the notification
