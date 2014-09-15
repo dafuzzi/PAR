@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 /**
  * @author Fabian Schwab
- *
+ * 
+ * Activity to show all different types of notes.
  */
 public class ShowNote extends ActionBarActivity {
 	PlainNote note;

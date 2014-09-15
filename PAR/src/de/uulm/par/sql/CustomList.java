@@ -20,6 +20,8 @@ import android.widget.TextView;
 /**
  * @author Fabian Schwab
  * 
+ * Creates the custom list which is seen when the application is started. 
+ * 
  */
 @SuppressLint("ViewHolder") public class CustomList extends ArrayAdapter<String> {
 	private final Activity context;

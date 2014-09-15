@@ -19,7 +19,7 @@ import android.util.Log;
 
 /**
  * @author Fabian Schwab
- *
+ * Manage the persistence of the notes.
  */
 public class NotesDataSource {
 

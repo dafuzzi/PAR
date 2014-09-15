@@ -19,6 +19,7 @@ import android.provider.ContactsContract;
 /**
  * @author Fabian Schwab
  *
+ * Activity to add a person based note
  */
 public class AddPerson extends ActionBarActivity {
 	private SimplePerson person;

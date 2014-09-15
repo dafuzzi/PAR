@@ -15,6 +15,7 @@ import android.widget.TextView;
 /**
  * @author Fabian Schwab
  * 
+ * Activity to add a simple note
  */
 public class AddNote extends ActionBarActivity {
 

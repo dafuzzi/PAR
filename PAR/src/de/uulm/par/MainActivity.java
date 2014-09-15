@@ -38,6 +38,8 @@ import android.widget.ListView;
 /**
  * @author Fabian Schwab
  * 
+ * Example application which make use of the MISService
+ * 
  */
 public class MainActivity extends ActionBarActivity implements ServiceConnection {
 	private static final String LOGTAG = "PAR";
@@ -68,7 +70,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		datasource = new NotesDataSource(this);
-		Log.d(LOGTAG,"DB open on Create");
+		Log.d(LOGTAG, "DB open on Create");
 		datasource.open();
 		notes = datasource.getAllNotes();
 		setContentView(R.layout.activity_main);
@@ -78,8 +80,8 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	@Override
 	protected void onResume() {
 		super.onResume();
-		datasource.open(); 
-		Log.d(LOGTAG,"DB open on Resume");
+		datasource.open();
+		Log.d(LOGTAG, "DB open on Resume");
 		CustomList adapter = new CustomList(MainActivity.this, titleBuilder(notes), imageBuilder(notes), notes);
 		list = (ListView) findViewById(R.id.list);
 		list.setAdapter(adapter);
@@ -98,19 +100,15 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(LOGTAG,"DB close on Destroy");
+		Log.d(LOGTAG, "DB close on Destroy");
 		datasource.close();
-//		try {
-//			doUnbindService();
-//		} catch (Throwable t) {
-//			Log.d(LOGTAG, "Failed to unbind from the service: ", t);
-//		}
 	}
+
 	@Override
-	protected void onPause(){
+	protected void onPause() {
 		super.onPause();
 		datasource.close();
-		Log.d(LOGTAG,"DB close on Pause");
+		Log.d(LOGTAG, "DB close on Pause");
 	}
 
 	@Override
@@ -169,7 +167,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d(LOGTAG,"DB open on Result");
+		Log.d(LOGTAG, "DB open on Result");
 		datasource.open();
 		if (resultCode == RESULT_OK) {
 			data.getExtras();
@@ -204,6 +202,8 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
+	 * Creates the icons for the different types of notes and returns an array.
+	 * 
 	 * @param notes
 	 * @return
 	 */
@@ -229,6 +229,8 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
+	 * Builds a array with all titles of all notes.
+	 * 
 	 * @param notes
 	 * @return
 	 */
@@ -241,7 +243,8 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
-	 * Handle incoming messages from MyService
+	 * Handle incoming messages from MISService. If an device is found a
+	 * notification is generated.
 	 */
 	private class IncomingMessageHandler extends Handler {
 		MainActivity main;
@@ -269,7 +272,11 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
+	 * Notification builder. Shows a system notification.
+	 * 
 	 * @param mac
+	 *            Needs the MAC to find the right device and gets its custom
+	 *            name.
 	 */
 	private void doNotification(String mac) {
 		String person = null;
@@ -301,7 +308,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
-	 * 
+	 * Binds the application to the MISService
 	 */
 	private void doBindService() {
 		bindService(new Intent("de.uulm.miss.MISService"), mConnection, Context.BIND_AUTO_CREATE);
@@ -310,7 +317,7 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
-	 * 
+	 * Unbind the application from the service.
 	 */
 	private void doUnbindService() {
 		if (mIsBound) {
@@ -334,8 +341,20 @@ public class MainActivity extends ActionBarActivity implements ServiceConnection
 	}
 
 	/**
+	 * Send a message to the service.
+	 * 
 	 * @param data
 	 * @param action
+	 *            are the one of the following:
+	 *            <ul>
+	 *            <li>MSG_REGISTER_APPLICATION</li>
+	 *            <li>MSG_UNREGISTER_APPLICATION</li>
+	 *            <li>MSG_ADD_CLIENT</li>
+	 *            <li>MSG_ADD_STATION</li>
+	 *            <li>MSG_REMOVE_CLIENT</li>
+	 *            <li>MSG_REMOVE_STATION</li>
+	 *            <li>MSG_FOUND_DEVICE</li>
+	 *            </ul>
 	 */
 	private void sendMessageToService(Bundle data, int action) {
 		if (mIsBound) {

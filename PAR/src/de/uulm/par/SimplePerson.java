@@ -5,14 +5,18 @@ import java.io.Serializable;
 /**
  * @author Fabian Schwab
  *
+ * A simple object which contains a MAC and a custom Name for the person.
  */
 public class SimplePerson implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String mac;
+	
+	/**
+	 * @param name
+	 * @param mac
+	 */
 	public SimplePerson(String name, String mac) {
 		super();
 		this.name = name;

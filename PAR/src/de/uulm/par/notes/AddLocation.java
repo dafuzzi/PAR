@@ -16,6 +16,7 @@ import android.os.Bundle;
 /**
  * @author Fabian Schwab
  *
+ * Activity to add a location based note
  */
 public class AddLocation extends ActionBarActivity {
 

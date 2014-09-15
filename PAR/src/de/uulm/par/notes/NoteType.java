@@ -3,6 +3,7 @@ package de.uulm.par.notes;
 /**
  * @author Fabian Schwab
  *
+ * Enums form the different types which the application supports.
  */
 public enum NoteType {
 	LOCATION,DATETIME,PERSON,SIMPLE;

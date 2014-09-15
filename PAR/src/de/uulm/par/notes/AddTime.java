@@ -27,6 +27,7 @@ import android.os.Bundle;
 /**
  * @author Fabian Schwab
  * 
+ * Activity to add a time based note
  */
 public class AddTime extends ActionBarActivity {
 

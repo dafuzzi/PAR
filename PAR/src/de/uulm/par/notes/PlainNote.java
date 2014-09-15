@@ -8,6 +8,8 @@ import de.uulm.par.SimplePerson;
 /**
  * @author Fabian Schwab
  * 
+ * The note objects contains all information for all different type of notes. 
+ * 
  */
 public class PlainNote implements Serializable {
 	/**
@@ -37,7 +39,7 @@ public class PlainNote implements Serializable {
 		this.created = created;
 	}
 	/**
-	 * 
+	 * Returns a new empty note.
 	 */
 	public PlainNote(){
 		super();

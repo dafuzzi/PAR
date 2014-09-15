@@ -7,7 +7,8 @@ import android.util.Log;
 
 /**
  * @author Fabian Schwab
- *
+ * 
+ * Creates the DB when it's not existing. 
  */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
